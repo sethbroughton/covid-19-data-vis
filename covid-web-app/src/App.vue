@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <global-cases-chart/>
+    <case-by-country/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GlobalCasesChart from './components/GlobalCasesChart.vue'
+import CaseByCountry from './components/CaseByCountry.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    GlobalCasesChart,
+    CaseByCountry
   }
 }
 </script>
