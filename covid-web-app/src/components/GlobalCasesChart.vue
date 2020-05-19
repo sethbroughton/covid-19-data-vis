@@ -1,13 +1,13 @@
 
 <template>
-      <line-chart v-if="loaded" :chartdata="chartdata" :options="options" />
+      <pie-chart v-if="loaded" :chartdata="chartdata" :options="options" />
 </template>
 
 <script>
-import LineChart from "./LineChart.vue";
+import PieChart from "./PieChart.vue";
 export default {
   name: "GlobalCasesChart",
-  components: { LineChart },
+  components: { PieChart },
   data: () => ({
     loaded: false,
     chartdata: null,

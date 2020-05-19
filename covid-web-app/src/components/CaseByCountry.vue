@@ -1,10 +1,12 @@
 
 <template>
 <div>
+  {{totalConfirmed}}
       <line-chart v-if="loaded" :chartdata="chartdata" :options="options" />
+
   <select v-model="country">
   <option disabled value="">Please select one</option>
-  <option>South Africa</option>
+  <option>south-africa</option>
   <option>B</option>
   <option>C</option>
     </select>
@@ -20,40 +22,36 @@ export default {
     loaded: false,
     chartdata: null,
     options: null,
-    country: null
+    country: '',
+    totalConfirmed: 0
   }),
   methods: {
-    getCountryLabel: function(countryData, totalConfirmedAllCountries) {
-      const percentageOfCases = (
-        (countryData.Confirmed / totalConfirmedAllCountries) *
-        100
-      ).toFixed(2);
-      return `${countryData.Country}: ${percentageOfCases}% (${countryData.Confirmed})`;
+    getRandomHex(){
+      return "#" + Math.floor(Math.random() * 16777215).toString(16);
     },
-  },
-  async mounted() {
-    this.loaded = false;
-    try {
-      fetch(`https://api.covid19api.com/total/dayone/country/south-africa`)
+    createChart(){
+        try {
+      fetch(`https://api.covid19api.com/dayone/country/${this.country}/status/confirmed`)
         .then(response => response.json())
         .then(summaryData => {
-          const filteredSummaryData = summaryData.Countries.map(sd => {
+          const filteredSummaryData = summaryData.map(sd => {
               return {
                 Date: sd.Date,
-                Confirmed: sd.Confirmed
+                Confirmed: sd.Cases
               };
             }) 
-          const totalConfirmed = filteredSummaryData.reduce(
+          this.totalConfirmed = filteredSummaryData.reduce(
             (a, b) => a + b.Confirmed,
             0
           );
+
           this.chartdata = {
             labels: filteredSummaryData.map(sd =>
-              this.getCountryLabel(sd, totalConfirmed)
+              sd.Date
             ),
             datasets: [
               {
-                backgroundColor: filteredSummaryData.map(this.getRandomHex),
+                backgroundColor: '#0388fc',
                 data: filteredSummaryData.map(sd => sd.Confirmed)
               }
             ]
@@ -67,6 +65,19 @@ export default {
     } catch (e) {
       console.error(e);
     }
+    }
+
+  },
+  watch:{
+    country: function(){
+      this.createChart();
+    }
+
+  }
+  ,
+  async mounted() {
+    this.loaded = false;
+    this.createChart();
   }
 };
 </script>
@@ -76,5 +87,6 @@ export default {
     width: 50% !important;
     height: 50% !important;
   } */
+ 
 </style>
 

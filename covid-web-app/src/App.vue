@@ -7,7 +7,9 @@
 
 <script>
 import GlobalCasesChart from './components/GlobalCasesChart.vue'
-import CaseByCountry from './components/CaseByCountry.vue'
+import CaseByCountry from './components/CaseByCountry.vue';
+//import * as d3 from 'd3';
+
 
 export default {
   name: 'App',
