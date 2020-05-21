@@ -18,7 +18,7 @@
 <script>
 import LineChart from "./LineChart.vue";
 export default {
-  name: "CaseByCountry",
+  name: "CaseDistribution",
   components: { LineChart },
   data: () => ({
     loaded: false,
@@ -35,12 +35,12 @@ export default {
     createChart(){
       try {
           this.loaded = false;
-       fetch(`https://api.covid19api.com/dayone/country/${this.country}/status/confirmed`)
+       fetch(`https://api.covid19api.com/live/country/south-africa/status/confirmed/date/2020-03-21T13:13:30Z`)
         .then(response => response.json())
         .then(summaryData => {
           const filteredSummaryData = summaryData.map(sd => {
               return {
-                Date: sd.Date.slice(5,10),
+                Date: sd.Date,
                 Confirmed: sd.Cases
               };
             }) 
@@ -60,12 +60,6 @@ export default {
               yAxes:[{
                 type: this.scale
               }]
-            },
-            title: {
-              display: false
-              },
-            legend: {
-              display: false,
             },
             responsive: false,
             maintainAspectRatio: false

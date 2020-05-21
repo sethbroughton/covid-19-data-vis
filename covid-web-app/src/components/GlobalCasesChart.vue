@@ -18,7 +18,7 @@ export default {
       const percentageOfCases = (
         (countryData.TotalConfirmed / totalConfirmedAllCountries) *
         100
-      ).toFixed(2);
+      ).toFixed(2); 
       return `${countryData.Country}: ${percentageOfCases}% (${countryData.TotalConfirmed})`;
     },
     getRandomHex: function() {

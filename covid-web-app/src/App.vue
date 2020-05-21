@@ -1,21 +1,31 @@
 <template>
   <div id="app">
-    <global-cases-chart/>
-    <case-by-country/>
+    <div class="tile is-ancestor">
+      <div class="tile is-4 box">
+        <global-cases-chart/>
+      </div>
+      <div class="tile is-4 box">
+        <case-by-country/>
+      </div>
+    </div>
+    <!-- <country-map/> -->
   </div>
 </template>
 
 <script>
 import GlobalCasesChart from './components/GlobalCasesChart.vue'
 import CaseByCountry from './components/CaseByCountry.vue';
-//import * as d3 from 'd3';
+//import CountryMap from './components/CountryMap.vue';
+//import CaseDistribution from './components/CaseDistribution.vue';
 
 
 export default {
   name: 'App',
   components: {
-    GlobalCasesChart,
-    CaseByCountry
+   GlobalCasesChart,
+   CaseByCountry,
+   //CountryMap,
+  // CaseDistribution
   }
 }
 </script>
